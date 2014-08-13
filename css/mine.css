@@ -21,6 +21,8 @@
     
     h1, h2, h3, h4, h5, h6 {
         font-family:"TitilliumMaps26L","Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+        /*line-height:asf;*/
+        text-height:text-size;
     }
     
     #announcements {
@@ -34,4 +36,34 @@
         /*background-color:#e9e9e9;
         margin-top:10px;*/
         
+    }
+    
+    .floatingyeti {
+        min-width:100%;
+        position: absolute;
+        top: -450px; 
+    }
+    
+    .navLink, .navLinks {
+        list-style-type: none;
+    }
+    
+    .navLinks ul li {
+        display: inline;
+    }
+    
+    .navLinks a {
+        padding:20px;
+        /*margin:10px;*/
+        border:grey;
+        color:white;
+        line-height:55px;
+    }
+    
+    .navLinks a:focus, .navLinks a:hover  {
+        background-color:#11568F;
+    }
+    
+    .announcebox p {
+        line-height:100%;
     }
