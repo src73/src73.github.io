@@ -38,7 +38,12 @@
     #wearessc {
         /*background-color:#e9e9e9;
         margin-top:10px;*/
-        
+    }
+    
+    .smalltext {
+        font-size:14px;
+        line-height:14px;
+        color: #ccc;
     }
     
     .floatingyeti {
@@ -75,11 +80,16 @@
     
     
     /*******Things to overwrite the top-bar styles...*******/
-    .top-bar {
+    .top-bar, .title-area .name {
         height:55px;
     }
     
-    .top-bar, .top-bar h1, .top-bar-section ul li a, .toggle-topbar, .toggle-topbar.menu-icon a, .contain-to-grid {
+    .title-area ul li, .title-area .name h1 a {
+        padding-right:0px;
+        margin-right:0px;
+    }
+    
+    .top-bar, .top-bar h1, .top-bar-section ul li a, .toggle-topbar, .toggle-topbar.menu-icon a, .contain-to-grid, .title-area {
         background-color:#0a304e !important;
         font-family: inherit !important;
         text-height:55px !important;
