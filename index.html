@@ -3,29 +3,44 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/foundation.css" />
-    <link rel="stylesheet" type="text/css" href="css/mine.css" />
+    <title>Home | SSC</title>
+    <!--this should add Titillum webfont.. which of course will not work offline-->
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Titillium+Web:400,700">
+    <link rel="stylesheet" type="text/css" href="css/foundation.css">
+    <link rel="stylesheet" type="text/css" href="css/mine.css">
+    <script src='js/modernizr.js'></script>
     
 </head>
 <body>
     <div class='wrapper'>
-        <!--The big picture thingy -->
-        <!--<div class='floatingyeti'><img src='trees.jpg'></div>-->
+        <div class='contain-to-grid'>
+        <nav class="top-bar" data-topbar="">
+            <ul class="title-area">
+              <!-- Title Area -->
+              <li class="name">
+                <h1>
+                  <a href="#">
+                    SSC
+                  </a>
+                </h1>
+              </li>
+            </ul>
+            <ul class='right'>
+              <li class="toggle-topbar right"><a href="#" style='line-height:55px;'><span>menu</span></a></li>
+            </ul>
+            
+          <section class="top-bar-section">
+              <!-- Right Nav Section -->
+              <ul class="right">
+                <li><a>About</a></li>
+                <li><a>Contact</a></li>
+                <li><a>FAQ</a></li>
+                <li><a>Projects</a></li>
+              </ul>
+            </section>
+        </nav>
+        </div>
         
-        <!----------THIS IS THE HEADER. GET EXCITED---------->
-        <header id='header' class='large-12 columns navLinks' style='color:white;'>
-            <div class='row'>
-                <div class='large-2 medium-2 small-2 columns'><h1 style='color:white;line-height:text-height;'>SSC</h1></div>
-                <div class='navLinks'>
-                    <ul class='right'>
-                        <li class=''><a>About</a></li>
-                        <li><a>Contact</a></li>
-                        <li><a>FAQ</a></li>
-                        <li><a>Projects</a></li>
-                    </ul>
-                </div>
-            </div>
-        </header>
         
         <!----------THIS IS THE BODY OF THE PAGE ITSELF. GET EXCITED---------->
         
@@ -90,5 +105,10 @@
             
         
     </div>
+    <script src='js/jquery.js'></script>
+    <script src='js/foundation.min.js'></script>
+    <script>
+        $(document).foundation()
+    </script>
 </body>
 </html>

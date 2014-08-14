@@ -3,10 +3,14 @@
         background-color:#0a304e;
     }
     
-    #footer {
+    #footer{
         background-color:#0a304e;
         color: #ccc;
     }
+    
+     #footer h3 {
+        color:white;
+     }
     
     textarea#feedback {
         background-color: #ccc;
@@ -14,14 +18,13 @@
     }
     
     body, .button {
-        font-family:"TitilliumMaps26L","Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+        font-family:"Titillium Web", "TitilliumMaps26L","Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
         /*font-size:14px;*/
         /*line-height:125%;*/
     }
     
     h1, h2, h3, h4, h5, h6 {
-        font-family:"TitilliumMaps26L","Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-        /*line-height:asf;*/
+        font-family:"Titillium Web", "TitilliumMaps26L","Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
         text-height:text-size;
     }
     
@@ -44,6 +47,11 @@
         top: -450px; 
     }
     
+    .announcebox p {
+        line-height:100%;
+    }
+    
+    /*Old navigation box...*/
     .navLink, .navLinks {
         list-style-type: none;
     }
@@ -63,7 +71,40 @@
     .navLinks a:focus, .navLinks a:hover  {
         background-color:#11568F;
     }
+    /*end Old navigation box*/
     
-    .announcebox p {
-        line-height:100%;
+    
+    /*******Things to overwrite the top-bar styles...*******/
+    .top-bar {
+        height:55px;
     }
+    
+    .top-bar, .top-bar h1, .top-bar-section ul li a, .toggle-topbar, .toggle-topbar.menu-icon a, .contain-to-grid {
+        background-color:#0a304e !important;
+        font-family: inherit !important;
+        text-height:55px !important;
+        font-size: inherit !important;
+    }
+    
+    
+    @media only screen and (min-width:40em) {
+        .top-bar, .top-bar h1, .top-bar-section ul li a, .toggle-topbar {
+            line-height:55px !important;
+        }
+    }
+    
+    .top-bar h1, .toggle-topbar.menu-icon a {
+        line-height:55px !important;
+    }
+    
+    .top-bar h1 {
+        font-size: 47px !important;
+    }
+    
+    .top-bar-section a:hover {
+        background-color:#11568F !important;
+    }
+    
+    /******end top-bar******/
+
+    
