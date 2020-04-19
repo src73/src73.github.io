@@ -56,7 +56,7 @@
 		<option value='business'>Business</option>
 		<option value='politics'>Politics</option>
 		<option value='dining'>Dining</option>
-		<option value='entertainment'>Dntertainment</option>
+		<option value='entertainment'>Entertainment</option>
 		<option value='entertainmenttheater'>Entertainment/Theater</option>
 		<option value='lifestyles'>Lifestyles</option>
 		<option value='nationWorld'>Nation and World</option>
@@ -113,11 +113,6 @@
 				var graytext = ''
 				var publisher = ''
 
-				if(isNYTimesArticle(art)) {
-					graytext = 'darkenArticle'
-					publisher = 'NYTimes'
-				}
-
 				if(isAPArticle(art)) {
 					graytext = 'darkenArticle'
 					publisher = 'AP'
@@ -126,6 +121,11 @@
 				if(isPartnerArticle(art)) {
 					graytext = 'darkenArticle'
 					publisher = 'Partner'
+				}
+
+				if(isNYTimesArticle(art)) {
+					graytext = 'darkenArticle'
+					publisher = 'NYTimes'
 				}
 
 				classes = []
