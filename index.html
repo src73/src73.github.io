@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src='js/xmlToJson.js'></script>
+	<style>
+		body {
+			margin:0;
+		}
+		.article a {
+			text-decoration: none;
+			color:#222;
+		}
+
+		.article {
+			margin-top:5px;
+			background-color:#fafafa;
+			padding:5px;
+			font-family:helvetica;
+		}
+
+		.dtText {
+			color:green;
+			font-size:x-small;
+		}
+
+		.article .description {
+			font-size:x-small;
+			color:gray;
+		}
+
+		.title {
+			font-family: Palatino;
+			font-weight:bolder;
+		}
+
+		.provider {
+			color:red;
+			font-size:x-small;
+		}
+
+		.darkenArticle a {
+			color:#999;
+			font-size:smaller;
+		}
+		</style>
+
+</head>
+
+<body>
+
+
+	<form><p>Chicago Tribune RSS. This is <select id='section' name='section' onchange='this.form.submit()'>
+		<option value='breaking'>Breaking [Local] News</option>
+		<option value='news'>News</option>
+		<option value='opinion'>Opinion</option>
+		<option value='business'>Business</option>
+		<option value='politics'>Politics</option>
+		<option value='dining'>Dining</option>
+		<option value='entertainment'>Dntertainment</option>
+		<option value='entertainmenttheater'>Entertainment/Theater</option>
+		<option value='lifestyles'>Lifestyles</option>
+		<option value='nationWorld'>Nation and World</option>
+		
+	</select>
+	<div id='wrapper'>Loading...</div>
+
+
+	<script>
+
+			var j; 
+
+			var formatDate = function(dtString) {
+				var opts = { weekday: 'long', month: 'long', day: 'numeric', hour:'numeric', 'minute':'numeric' };
+				return (new Date(dtString)).toLocaleString('en-us',opts)
+			}
+
+
+
+			var getUrlVars = (function(a) {
+			    if (a == "") return {};
+			    var b = {};
+			    for (var i = 0; i < a.length; ++i)
+			    {
+			        var p=a[i].split('=', 2);
+			        if (p.length == 1)
+			            b[p[0]] = "";
+			        else
+			            b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+			    }
+			    return b;
+			})(window.location.search.substr(1).split('&'));
+
+			var selectDropDownVal = function(selectId, optionValToSelect){
+				// https://thisinterestsme.com/change-select-option-javascript/
+
+			    //Get the select element by it's unique ID.
+			    var selectElement = document.getElementById(selectId);
+			    //Get the options.
+			    var selectOptions = selectElement.options;
+			    //Loop through these options using a for loop.
+			    for (var opt, j = 0; opt = selectOptions[j]; j++) {
+			        //If the option of value is equal to the option we want to select.
+			        if (opt.value == optionValToSelect) {
+			            //Select the option and break out of the for loop.
+			            selectElement.selectedIndex = j;
+			            break;
+			        }
+			    }
+			}
+
+			var convertArticleToHtml = function(art) {
+				var out = [];
+				var graytext = ''
+				var publisher = ''
+
+				if(isNYTimesArticle(art)) {
+					graytext = 'darkenArticle'
+					publisher = 'NYTimes'
+				}
+
+				if(isAPArticle(art)) {
+					graytext = 'darkenArticle'
+					publisher = 'AP'
+				}
+
+				if(isPartnerArticle(art)) {
+					graytext = 'darkenArticle'
+					publisher = 'Partner'
+				}
+
+				classes = []
+
+				classes.push("article")
+				classes.push(graytext)
+
+
+
+				out.push("<div class='"+classes.join(" ")+"'>")
+				out.push("<a href='" + art.link + "'>")
+
+				out.push("<span class='dtText'>")
+				out.push(formatDate(art.pubDate))
+				out.push("</span>")
+
+				if(publisher != '') {
+				out.push(" | <span class='provider'>")
+				out.push("(" + publisher + ")")
+				out.push("</span>")
+				}
+
+
+
+				out.push("<br>")
+
+				out.push("<span class='title'>")
+				out.push(art.title)
+				out.push("</span>")
+
+
+
+				
+
+				out.push("<br>")
+				
+				out.push("<span class='description'>")
+				out.push(art.description)
+				out.push("</span>")
+
+
+
+				out.push("</div>")
+
+				out.push("</a>")
+
+				return out.join("")
+			}
+
+			var doWhenRssComesBack = function(rss) {
+				// console.log(rss)
+
+				j = xmlToJson.parse(rss)
+
+
+				// for each item
+				var out = j.rss.channel.item.map(convertArticleToHtml).join("")
+
+				document.getElementById('wrapper').innerHTML = (out)
+
+			}
+
+			var isNYTimesArticle = function(art) {
+				return art.description.toUpperCase().includes("nytimes.com".toUpperCase())
+			}
+
+			var isPartnerArticle = function(art) {
+				try {
+					var author = art['dc:creator'].toUpperCase()
+
+					if(author.includes("Bloomberg News".toUpperCase())) {
+						return true;
+					}
+
+					if(author.includes("Variety".toUpperCase())) {
+						return true;
+					}
+
+					if(author.includes("Los Angeles Times".toUpperCase())) {
+						return true;
+					}
+				}
+				catch(e) {
+					return false;
+				}
+			}
+
+			var isAPArticle = function(art) {
+				if(art['dc:creator'] == '' 
+					|| JSON.stringify(art['dc:creator'])=='{}'
+					|| art['dc:creator'] == 'Associated Press'
+					) {
+					return true;
+				}
+
+				try{
+					var startOfAuthorship = art['dc:creator'].substring(0,5)
+					return startOfAuthorship.toUpperCase() == startOfAuthorship
+				}
+				catch(e) {
+					return false
+				}
+			}
+
+
+
+		//var feed = 'https://www.chicagotribune.com/arcio/rss/category/nation-world/?query=display_date:%5Bnow-2d+TO+now%5D+AND+revision.published:true&sort=display_date:desc#nt=instory-link'
+
+		var feeds = {}
+
+		feeds.business = 'https://www.chicagotribune.com/arcio/rss/category/business/?query=display_date:%5Bnow-2d+TO+now%5D+AND+revision.published:true&sort=display_date:desc#nt=instory-link'
+
+		feeds.breaking = 'https://www.chicagotribune.com/arcio/rss/category/news/breaking/?query=display_date:%5Bnow-5d+TO+now%5D+AND+revision.published:false&sort=display_date:desc#nt=instory-link'
+
+		
+		feeds.dining = 'https://www.chicagotribune.com/arcio/rss/category/dining/?query=display_date:%5Bnow-2d+TO+now%5D+AND+revision.published:true&sort=display_date:desc#nt=instory-link'
+		feeds.entertainment = 'https://www.chicagotribune.com/arcio/rss/category/entertainment/?query=display_date:%5Bnow-2d+TO+now%5D+AND+revision.published:true&sort=display_date:desc#nt=instory-link'
+		feeds.entertainmenttheater = 'https://www.chicagotribune.com/arcio/rss/category/entertainment/theater/?query=display_date:%5Bnow-2d+TO+now%5D+AND+revision.published:true&sort=display_date:desc#nt=instory-link'
+		feeds.lifestyles = 'https://www.chicagotribune.com/arcio/rss/category/lifestyles/?query=display_date:%5Bnow-2d+TO+now%5D+AND+revision.published:true&sort=display_date:desc#nt=instory-link'
+		feeds.nationWorld = 'https://www.chicagotribune.com/arcio/rss/category/nation-world/?query=display_date:%5Bnow-2d+TO+now%5D+AND+revision.published:true&sort=display_date:desc#nt=instory-link'
+		feeds.news = 'https://www.chicagotribune.com/arcio/rss/category/news/?query=display_date:%5Bnow-2d+TO+now%5D+AND+revision.published:true&sort=display_date:desc#nt=instory-link'
+		feeds.opinion = 'https://www.chicagotribune.com/arcio/rss/category/opinion/?query=display_date:%5Bnow-2d+TO+now%5D+AND+revision.published:true&sort=display_date:desc#nt=instory-link'
+		feeds.politics = 'https://www.chicagotribune.com/arcio/rss/category/politics/?query=display_date:%5Bnow-2d+TO+now%5D+AND+revision.published:true&sort=display_date:desc#nt=instory-link'
+
+		var feed;
+		var section;
+		try {
+			section=getUrlVars['section']
+			if(typeof feeds[section] == 'string') {
+				feed = feeds[section]
+			}
+			else {
+				throw('err')
+			}
+		}
+		catch(e) {
+			section='news'
+			feed = feeds.breaking
+		}
+
+		selectDropDownVal('section', section)
+
+		// fetch(feed)
+		//   .then(response => response.text())
+		//   .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
+		//   .then(data => {console.log(data); d=data})
+
+
+
+		fetch(feed)
+			.then(response => response.text())
+			.then(doWhenRssComesBack)
+
+
+
+
+	</script>
+
+
+</body>
+</html>
