@@ -121,7 +121,7 @@
 
 				if(isPartnerArticle(art)) {
 					graytext = 'darkenArticle'
-					publisher = 'Partner'
+					publisher = isPartnerArticle(art)
 				}
 
 				if(isNYTimesArticle(art)) {
@@ -190,7 +190,12 @@
 			}
 
 			var isNYTimesArticle = function(art) {
-				return art.description.toUpperCase().includes("nytimes.com".toUpperCase())
+				try {
+					return art.description.toUpperCase().includes("nytimes.com".toUpperCase())
+				}
+				catch(e) {
+					return false 
+				}
 			}
 
 			var isPartnerArticle = function(art) {
@@ -198,15 +203,15 @@
 					var author = art['dc:creator'].toUpperCase()
 
 					if(author.includes("Bloomberg News".toUpperCase())) {
-						return true;
+						return "Bloomberg News";
 					}
 
 					if(author.includes("Variety".toUpperCase())) {
-						return true;
+						return "Variety";
 					}
 
 					if(author.includes("Los Angeles Times".toUpperCase())) {
-						return true;
+						return "Los Angeles Times";
 					}
 				}
 				catch(e) {
