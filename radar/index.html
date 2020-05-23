@@ -4,6 +4,9 @@
 	<title>Radar Loop with Leaflet</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="apple-touch-icon" href="img/radar.png">
+
 	<meta http-equiv="refresh" content="300">
 
 	<link rel="stylesheet" href="plugins/leaflet0.7/leaflet.css" />
@@ -46,8 +49,7 @@ for(var hour = 0; hour <= 10; hour++){
 	} 
 	if (time == 0) {
 		var layer = 'nexrad-n0r-900913'
-		//radarLayers[hour] = L.tileLayer.wms("http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi", {
-		radarLayers[hour] = L.tileLayer.wms("https://nowcoast.noaa.gov/arcgis/services/nowcoast/radar_meteo_imagery_nexrad_time/MapServer/WmsServer", {
+		radarLayers[hour] = L.tileLayer.wms("http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi", {
 		layers: layer,
 		format: 'image/png',
 		transparent: true,
