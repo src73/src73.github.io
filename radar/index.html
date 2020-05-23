@@ -14,13 +14,16 @@
 	<script src="plugins/leaflet0.7/leaflet.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<link rel="stylesheet" href="style/style2.css"/>	
-	<script src="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-image/v0.0.4/leaflet-image.js"></script>
+	<!--<script src="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-image/v0.0.4/leaflet-image.js"></script>-->
+	<script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
 </head>
 <body>	        
 	<div id="map" style="width:100%; height:100%; "></div>
 
 	<script>
-var mapquestOSM = L.tileLayer("http://{s}.tiles.mapbox.com/v3/am3081.h0po4e8k/{z}/{x}/{y}.png");
+var baseMap = new L.StamenTileLayer("toner-lite", {
+                        detectRetina: true
+                    })
 
 
 map = L.map("map", {
@@ -28,8 +31,8 @@ map = L.map("map", {
 	zoom: 7,
     //minZoom: 4,
     //maxZoom: 10,
-	layers: [mapquestOSM],
-        zoomControl: false,
+	layers: [baseMap],
+        zoomControl: false
 	});
 		
 var radarLayers = [];
@@ -61,11 +64,6 @@ for(var hour = 0; hour <= 10; hour++){
 	}
 	}
 
-$('#timeSlider').on('change',function(){
-	console.log($(this).val());
-	radarLayers.map(function(layer){ layer.setOpacity(0)});
-	radarLayers[$(this).val()].setOpacity(0.5); 
-});
 
 var i = 0;                     //  set your counter to 1
 
@@ -74,7 +72,6 @@ function myLoop () {           //  create a loop function
      console.log(i);
      radarLayers.map(function(layer){ layer.setOpacity(0)});
      radarLayers[i].setOpacity(0.5); 
-     $('#timeSlider').val(i);          //  your code here
       i++;                     //  increment the counter
       if (i < 10) {            //  if the counter < 10, call the loop function
          myLoop();             //  ..  again which will trigger another 
