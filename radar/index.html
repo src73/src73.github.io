@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Radar Loop with Leaflet</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="refresh" content="300">
+	<link rel="stylesheet" href="plugins/leaflet0.7/leaflet.css" />
+	<script src="plugins/leaflet0.7/leaflet.js"></script>
+	<script src="//cdn.jsdelivr.net/leaflet.esri/1.0.3/esri-leaflet.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<link rel="stylesheet" href="style/style2.css"/>	
+	<script src="plugins/l.control.geosearch.js"></script>
+	<link rel="stylesheet" href="style/l.geosearch.css" />
+	<script src="plugins/l.geosearch.provider.esri.js"></script>
+	<script src="plugins/L.Control.ZoomMin.js"></script>
+	<link rel="stylesheet" href="style/L.Control.ZoomMin.css" media="screen">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://domoritz.github.io/leaflet-locatecontrol/dist/L.Control.Locate.min.css" />
+	<script src="https://domoritz.github.io/leaflet-locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+	<script src="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-image/v0.0.4/leaflet-image.js"></script>
+</head>
+<body>	        
+	<div id="map" style="width:100%; height:100%; "></div>
+	<input id='timeSlider' type=range min=0 value=0 max=10 step=1>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script>
+var mapquestOSM = L.tileLayer("http://{s}.tiles.mapbox.com/v3/am3081.h0po4e8k/{z}/{x}/{y}.png");
+
+
+map = L.map("map", {
+	center: [37.5, -98.05],
+	zoom: 4,
+        minZoom: 4,
+        maxZoom: 10,
+	layers: [mapquestOSM],
+        zoomControl: false,
+	});
+		
+var radarLayers = [];
+for(var hour = 0; hour <= 10; hour++){  
+	console.log("hour = " + hour);
+	time = (50)-(hour * 5);
+	if (hour < 10) {
+	var layer = 'nexrad-n0r-900913-m'+time+'m'
+	radarLayers[hour] = L.tileLayer.wms("http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi", {
+			layers: layer,
+			format: 'image/png',
+			transparent: true,
+			opacity: 0.0,
+		});
+		console.log(layer);
+                radarLayers[hour].addTo(map);
+
+	} 
+	if (time == 0) {
+		var layer = 'nexrad-n0r-900913'
+		radarLayers[hour] = L.tileLayer.wms("http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi", {
+		layers: layer,
+		format: 'image/png',
+		transparent: true,
+		opacity: 0.0,
+	});
+	console.log(layer);
+        radarLayers[hour].addTo(map);
+	}
+	}
+
+$('#timeSlider').on('change',function(){
+	console.log($(this).val());
+	radarLayers.map(function(layer){ layer.setOpacity(0)});
+	radarLayers[$(this).val()].setOpacity(0.5); 
+});
+
+var i = 0;                     //  set your counter to 1
+
+function myLoop () {           //  create a loop function
+   setTimeout(function () {    //  call a 3s setTimeout when the loop is called
+     console.log(i);
+     radarLayers.map(function(layer){ layer.setOpacity(0)});
+     radarLayers[i].setOpacity(0.5); 
+     $('#timeSlider').val(i);          //  your code here
+      i++;                     //  increment the counter
+      if (i < 10) {            //  if the counter < 10, call the loop function
+         myLoop();             //  ..  again which will trigger another 
+      }else{
+        i = 0;
+	myLoop();
+      }                      //  ..  setTimeout()
+   }, 500)
+}
+
+myLoop();
+	
+// Add zoom control button
+map.addControl(new L.Control.ZoomMin());
+
+
+// Add GeoSearch
+new L.Control.GeoSearch({
+	provider: new L.GeoSearch.Provider.Esri()
+}).addTo(map);
+
+// Add Locate user 
+map.addControl(L.control.locate({
+       locateOptions: {
+               maxZoom: 10
+}}));
+
+
+	</script>
+</body>
+</html>
