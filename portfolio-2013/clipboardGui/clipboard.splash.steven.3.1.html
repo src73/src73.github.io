@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <!--orient: p (portrait), l (landscape), t (tiny) -->
+        <meta name = "viewport" content = "width=device-width"> <!--should make iOS happier -->
+        <link href='iconSquare.png' rel='SHORTCUT ICON'/>
+        <link rel="stylesheet" type="text/css" href="clipboard.nav.css" />
+        
+        <style type="text/css">
+            
+            body{
+                padding:0;
+                text-align:center;
+                background:#2F342E; /*Google dark grey*/
+            }
+            
+            div {
+                position:absolute;
+                border:1px dotted;
+                border-color:#2A2A2A;
+                /*background:white;*/
+            }
+            
+            
+            
+            div.fillBackground {
+                position:absolute;
+                border:0px;
+                width:100%;
+                height:100%;
+                margin-left:0px;
+                margin-top:0px;
+                background:#2F342E; /*Google dark grey*/
+                /*until the end of tag is from Colin's splash screen  */
+                /*background: -webkit-gradient(radial, 100% 0%, 0, 100% 0%, 1024, from(#98A59B), to(#0F110F));
+                background: -webkit-radial-gradient(100% 0%, circle cover, #98A59B 0%,#0F110F 80%);
+                background: -moz-radial-gradient(100% 0%,cover,#98A59B,#0F110F 80%);
+                */
+                /* Green Gradients: #67896F to #0A110B */
+                /* Blue Gradients: #C9BFFF to #010044 */
+                /* Red Gradients: #FFD3D3 to #500000 */
+                /* Gold Gradients: #F2F1B8 to #968400 */
+                /* Purple Gradients: #EABDFC to #2E003A */
+                background-repeat: no-repeat;
+                height: 100%;
+            }
+            
+            div.fill {
+                position:relative;
+                width:100%;
+                /*height:100%;*/
+                border:0px;
+            }
+            
+            #funBox {
+                position:relative;
+                margin-left:auto;
+                margin-right:auto;
+                width:0px;
+                height:0px;
+                border:0px none;
+            }
+            
+            p {
+                font-family:"Lucida Grande", "Lucida Sans Unicode", Arial, sans-serif;
+                font-size:12px;
+                text-align:left;
+            }
+            
+            p.head {
+                font-size:25px;
+                text-align:center;
+            }
+            
+            p.light {
+                color:#707070;
+                font-size:10px;
+            }
+            
+            p.themeHead {
+                font-family:"Copperplate Bold Condensed", sans-serif;
+                font-size:75px;
+                text-align:center;
+            }
+            
+            
+            a.noExist {
+                text-decoration:none;
+                color:black;
+            }
+            
+            td.href {
+                text-align:left;
+                font-family:"Lucida Grande", "Lucida Sans Unicode", Arial, sans-serif;
+                
+            }
+            
+            div.hTitle {
+                position:relative;
+                float:left;
+                width:175px;
+            }
+            
+            div.hCopy {
+                width:175px;
+                border:0px hidden;
+                position:relative;
+                float:left;
+            }
+            
+            
+            
+        </style>
+        
+        <!--S3C note: We use the following block of JS code under the MIT lisence, which permits us to use it in commerical software. And yey! It's jQuery! -->
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script type="text/javascript" src="fxlib.navCopy.js"></script>
+        
+        <script type="text/javascript">
+            
+            
+            /*
+            sf = scale factor; is also the width of the short side of the objects. 
+            sd = small demension
+            ld = large demension
+            gr = golden ratio
+            gapConstant = the assigned base value for the gap. 
+            gap = the standardized gap between objects.
+            c# = the number of the canvas element.
+            
+            tc = top constant; the value required to center everything vertically.
+            lc = left constant; the value requried to center everything horizontally. 
+            */
+            
+            //define constants
+            var sf=230; //orig=200; 230
+            var gr=1.61; //orig = 1.61
+            var gapConstant=.1; //orig = .15; .1
+            
+            //define relative sizes of boxes
+            var sd = sf;
+            var ld = gr*sf;
+            var gap= gapConstant*sf;
+            
+            //other fun things
+            prevOrient="";
+            
+            
+            function centerMath() {
+                //figure out how big the entire object is...
+                
+                if(orient=="l") {
+                    //landscape
+                    var myWidth=sd+sd+ld+gap+gap;
+                    var myHeight=sd+sd+sd+gap+gap;
+                }
+                
+                else if(orient=="p") {
+                    var myWidth=sd+sd+sd+gap+gap;
+                    var myHeight=sd+sd+ld+gap+gap;
+                }
+            
+                //math to center it
+                /*
+                var dispWidth=document.documentElement.clientWidth;
+                var dispHeight=document.documentElement.clientHeight;
+                */
+                var dispWidth=document.body.clientWidth;
+                var dispHeight=document.documentElement.clientHeight;
+                
+                lc = (dispWidth-myWidth)/2;//for top
+                tc = (dispHeight-myHeight)/2;//for left
+                
+                if(lc<5) {
+                    lc=5;
+                }
+                
+                if(tc<5) {
+                    tc=5;
+                }
+            }
+            
+            function pseudonym(){
+                //define the pseudonyms
+                c1=document.getElementById("c1");
+                c2=document.getElementById("c2");
+                c3=document.getElementById("c3");
+                c4=document.getElementById("c4");
+                c5=document.getElementById("c5");
+                c6=document.getElementById("c6");
+                c7=document.getElementById("c7");
+                c8=document.getElementById("c8");
+                c9=document.getElementById("c9");
+                footer=document.getElementById("footer");
+            }
+            
+            function tinySize() {
+                    c1.style.width="100%";
+                    c1.style.height="auto";
+                    c1.style.position="relative";
+                    
+                    c2.style.width="100%";
+                    c2.style.height="auto";
+                    c2.style.position="relative";
+
+                    c3.style.width="100%";
+                    c3.style.height="auto";
+                    c3.style.position="relative";
+                    
+                    c4.style.width="100%";
+                    c4.style.height="auto";
+                    c4.style.position="relative";
+                    
+                    c5.style.width="100%";
+                    c5.style.height="auto";
+                    c5.style.position="relative";
+                    
+                    c6.style.width="100%";
+                    c6.style.height="auto";
+                    c6.style.position="relative";
+                    
+                    c7.style.width="100%";
+                    c7.style.height="auto";
+                    c7.style.position="relative";
+                    
+                    c8.style.width="100%";
+                    c8.style.height="auto";
+                    c8.style.position="relative";
+                    
+                    c9.style.width="100%";
+                    c9.style.height="auto";
+                    c9.style.position="relative";
+            }
+            
+            function updateSizes() {
+                if(orient=="l") {
+                    //landscape
+                    c1.style.width=sd+"px";
+                    c1.style.height=ld+"px";
+                    
+                    c7.style.width=ld+"px";
+                    c7.style.height=sd+"px";
+                    
+                    c8.style.width=sd+"px";
+                    c8.style.height=sd+sd-ld+"px";
+                    
+                    c9.style.width=sd+"px";
+                    c9.style.height=sd+sd+gap-ld-gap+"px";
+                }
+                
+                else if(orient=="p") {
+                    //portrait
+                    c1.style.width=sd+"px";
+                    c1.style.height=ld+"px";
+                    
+                    c7.style.width=sd+"px";
+                    c7.style.height=ld+"px";
+                    
+                    c8.style.width=sd+sd-ld+"px";
+                    c8.style.height=sd+"px";
+                    
+                    c9.style.width=sd+sd+gap-ld-gap+"px";
+                    c9.style.height=sd+"px";
+                }
+                
+                else if(orient=="t") {
+                    tinySize();
+                }
+            }
+            
+            function setSizes() {
+                //only what does not change w/ orient. 
+                
+                if(orient=="l" || orient=="p") {
+                    c2.style.width=sd+"px";
+                    c2.style.height=sd+"px";
+                    
+                    c3.style.width=ld+"px";
+                    c3.style.height=sd+"px";
+                    
+                    c4.style.width=ld+"px";
+                    c4.style.height=sd+"px";
+                    
+                    c5.style.width=sd+"px";
+                    c5.style.height=sd+"px";
+                    
+                    c6.style.width=sd+"px";
+                    c6.style.height=ld+"px";
+                    
+                    updateSizes(); //do what does change.
+                }
+                
+                else if(orient=="t") {
+                    tinySize();
+                }
+            }
+            
+            function setLocation() {
+                
+                if(orient=="l") {
+                    //for landscape
+                    c1.style.left=0+lc+"px";
+                    c1.style.top=sd+sd+gap-ld+tc+"px";
+                    
+                    c2.style.left=sd+gap+lc+"px";
+                    c2.style.top=0+tc+"px";
+                    
+                    c3.style.left=sd+sd+gap+gap+lc+"px";
+                    c3.style.top=0+tc+"px";
+                    
+                    c4.style.left=0+lc+"px";
+                    c4.style.top=sd+sd+gap+gap+tc+"px";
+                    
+                    c5.style.left=ld+gap+lc+"px";
+                    c5.style.top=sd+sd+gap+gap+tc+"px";
+                    
+                    c6.style.left=sd+ld+gap+gap+lc+"px";
+                    c6.style.top=sd+gap+tc+"px";
+                    
+                    c7.style.left=sd+gap+lc+"px";
+                    c7.style.top=sd+gap+tc+"px";
+                    
+                    c8.style.left=0+lc+"px";
+                    c8.style.top=0+tc+"px";
+                    
+                    c9.style.left=sd+ld+gap+gap+lc+"px";
+                    c9.style.top=sd+gap+ld+gap+tc+"px";
+                }
+                
+                else if(orient=="p") {
+                    //for portrait 
+                    c1.style.left=lc+0+"px";
+                    c1.style.top=tc+0+"px";
+                    
+                    c2.style.left=lc+0+"px";
+                    c2.style.top=tc+ld+gap+"px";
+                    
+                    c3.style.left=lc+sd+gap+"px";
+                    c3.style.top=tc+0+"px";
+                    
+                    c4.style.left=lc+sd+sd+gap-ld+"px";
+                    c4.style.top=tc+ld+sd+gap+gap+"px";
+                    
+                    c5.style.left=lc+sd+sd+gap+gap+"px";
+                    c5.style.top=tc+sd+gap+"px";
+                    
+                    c6.style.left=lc+sd+sd+gap+gap+"px";
+                    c6.style.top=tc+sd+sd+gap+gap+"px";
+                    
+                    c7.style.left=lc+sd+gap+"px";
+                    c7.style.top=tc+sd+gap+"px";
+                    
+                    c8.style.left=lc+ld+sd+gap+gap+"px";
+                    c8.style.top=tc+0+"px";
+                    
+                    c9.style.left=lc+0+"px";
+                    c9.style.top=tc+ld+sd+gap+gap+"px";
+                }
+                
+                else if(orient=="t") {
+                    //locations for tiny mode. 
+                }
+            }
+            
+            
+            //################################Begin Data Displaying; end the layout.################################################################################################################################
+            
+            
+            
+            function showNotificationCenter() {
+                c7.innerHTML="<h3>You have no new notifications</h3>";
+            }
+            
+            //make the following bit OOP.
+            //show image
+            
+
+            function c1ShowImage() {
+                if(orient != "t") {
+                    var imgLoc="timeV.gif";
+                    c1.innerHTML="<a class='noExist' href='#' onclick='c1ShowCopy();'><img alt='time' src='" + imgLoc + "' width='" + sd + "' height='" + ld + "' /></a>"
+                }
+                else {
+                    c1.innerHTML="<a class='noExist' href='#' onclick='c1ShowCopy();'><div class='fill'><h3 class='tiny'>time</h3></div></a>";
+                }
+            }
+            
+            function c3ShowImage() {
+                if(orient != "t") {
+                    var imgLoc="peopleH.gif";
+                    c3.innerHTML="<a class='noExist' href='#' onclick='c3ShowCopy();'><br /><br /><img alt = 'people' src='" + imgLoc + "' width='" + ld + "' /></a>"
+                }
+                else {
+                    c3.innerHTML="<a class='noExist' href='#' onclick='c3ShowCopy();'><div class='fill'><h3 class='tiny'>people</h3></div></a>";
+                }
+            }
+            
+            function c4ShowImage() {
+                if(orient != "t") {
+                    var imgLoc="pointsH.gif";
+                    c4.innerHTML="<a class='noExist' href='#' onclick='c4ShowCopy();'><img alt = 'points' src='" + imgLoc + "' height='" + sd + "' /></a>"
+                }
+                else {
+                    c4.innerHTML="<a class='noExist' href='#' onclick='c4ShowCopy();'><div class='fill'><h3 class='tiny'>points</h3></div></a>";
+                }
+            }
+            
+            function c6ShowImage() {
+                if(orient != "t") {
+                    var imgLoc="stuffV.gif";
+                    c6.innerHTML="<a class='noExist' href='#' onclick='c6ShowCopy();'><img alt = 'stuff' src='" + imgLoc + "' width='" + sd + "' height='" + ld + "' /></a>"
+                }
+                else {
+                    c6.innerHTML="<a class='noExist' href='#' onclick='c6ShowCopy();'><div class='fill'><h3 class='tiny'>stuff</h3></div></a>";
+                }                
+            }
+            
+            function c5ShowImage() {
+                c5.innerHTML=helpTImg();
+            }
+            
+            function c2ShowImage() {
+                c2.innerHTML=optTImg();
+            }
+            
+            
+            //show copy
+            function c1ShowCopy() {
+                c3ShowImage(); c4ShowImage(); c6ShowImage();
+                c1.innerHTML=timeNav();
+            }
+            
+            function c3ShowCopy() {
+                c1ShowImage(); c4ShowImage(); c6ShowImage();
+                c3.innerHTML=peopleNav();
+            }
+            
+            function c4ShowCopy() {
+                c1ShowImage(); c3ShowImage(); c6ShowImage();
+                c4.innerHTML=pointsNav();
+            }
+            
+            function c6ShowCopy() {
+                c1ShowImage(); c3ShowImage(); c4ShowImage(); 
+                c6.innerHTML=stuffNav();
+            }
+            
+            function configureElements() {
+                setSizes();
+                centerMath();
+                setLocation();
+                
+                showNotificationCenter();
+                c1ShowImage();
+                c3ShowImage();
+                c4ShowImage();
+                c6ShowImage();
+                c5ShowImage();
+                c2ShowImage();
+            }
+            
+            function reset() {
+                /*
+                c1.innerHTML="";
+                c2.innerHTML="";
+                c3.innerHTML="";
+                c4.innerHTML="";
+                c5.innerHTML="";
+                c6.innerHTML="";
+                c7.innerHTML="";
+                c8.innerHTML="";
+                c9.innerHTML="";
+                */
+                c1.style.left="0px";
+                c1.style.top="0px";
+                c1.style.position="absolute";
+                
+                c2.style.left="0px";
+                c2.style.top="0px";
+                c2.style.position="absolute";
+                
+                c3.style.left="0px";
+                c3.style.top="0px";
+                c3.style.position="absolute";
+                
+                c4.style.left="0px";
+                c4.style.top="0px";
+                c4.style.position="absolute";
+                
+                c5.style.left="0px";
+                c5.style.top="0px";
+                c5.style.position="absolute";
+                
+                c6.style.left="0px";
+                c6.style.top="0px";
+                c6.style.position="absolute";
+                
+                c7.style.left="0px";
+                c7.style.top="0px";
+                c7.style.position="absolute";
+                
+                c8.style.left="0px";
+                c8.style.top="0px";
+                c8.style.position="absolute";
+                
+                c9.style.left="0px";
+                c9.style.top="0px";
+                c9.style.position="absolute";
+                
+            }
+            
+            function echoDimensions() {
+                
+                if($(window).width() > $(window).height()) {
+                    orient="l";
+                    var hrt="landscape";
+                }
+                
+                else {
+                    //portrait
+                    orient="p";
+                    var hrt = "portrait";
+                }
+                
+                if($(window).width() <500) {
+                    //tiny
+                    orient = "t";
+                    var hrt = "tiny";
+                }
+                
+                if(prevOrient != orient) {
+                    //alert("reset" + orient);
+                    reset();
+                    
+                    c1ShowImage();
+                    c3ShowImage();
+                    c4ShowImage();
+                    c6ShowImage();
+                    
+                    setSizes();
+                    centerMath();
+                    setLocation();
+                    
+                    centerMath(); setLocation(); updateSizes();
+                }
+                
+                prevOrient=orient;
+                
+                c9.innerHTML="<p class='light'>mode: "+ hrt +"<br />prevMode: " + prevOrient + "<br />width: " + $(window).width() + "<br />height: " + $(window).height();
+            }
+            
+            function buildPage() {
+                pseudonym();
+                echoDimensions();
+                configureElements();
+                
+                //the initization of the jQuery command that resizes everything. 
+                $(window).resize(function() { //on the event of resize
+                    echoDimensions(); centerMath(); setLocation(); updateSizes();//do this
+                });
+                
+                
+            }
+            
+        </script>
+        
+
+    
+    </head>
+    <body onload="buildPage()" class="darkBG">
+        <div class="fillBackground" onclick="c1ShowImage(); c3ShowImage(); c4ShowImage(); c6ShowImage();"></div>
+        <div class="funBox" >
+            <div id="c7">Loading...</div>
+            <div id="c1"></div>
+            <div id="c3"></div>
+            <div id="c4"></div>
+            <div id="c6"></div>
+            <a href="" class="noExist"><div id="c5"></div></a>
+            <div id="c2"></div>
+            <div id="c8"></div>
+            <div id="c9"></div>
+        </div>
+        <!--colours
+        
+        dGreen(points): #18563B
+        lGreen (people): #5FC17C
+        dark: #2A2A2A (circle), #313F4A (dark version of #7597B1)
+        
+        darker green: #1E756F (circle)
+        
+        gooogleRed: #E75D5B
+        googleGrey: #C2CDCF
+        googleNearBlack: #2F342E
+        
+        -->
+        <div id="footer"></div>
+        
+        <script type="text/javascript">
+
+        </script>
+        
+    </body>
+</html>

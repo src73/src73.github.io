@@ -1,0 +1,305 @@
+<html>
+    <head>
+        <title>Question</title>
+        <style type='text/css'>
+            
+            body{
+                background: #e1e1e1 url(http://thrivesolo.com/img/hatch.png) repeat fixed;
+            }
+            
+            #wrapper {
+                display:table;
+                height:100%;
+                width:100%;
+            }
+            
+            #w2{
+                display:table-cell;
+                vertical-align:middle;
+
+            }
+            
+            #content {
+                max-width:700px;
+                margin-left:auto;
+                margin-right:auto;
+                padding:0px;
+            }
+            
+            #bottomFill {
+                display:table-cell;
+                height:100px;
+            }
+            
+            .block {
+                padding:10px;
+                margin:10px;
+                background-color:#A1C9DB;
+                width:100%;
+                opacity:.85;
+                border-radius:15px;
+                border-width:5px;
+            }
+            
+            code {
+                display:inline;
+                /*padding:15px;*/
+                background-color:#e1e1e1;
+            }
+            
+            pre {
+                margin-left:20px;
+            }
+            
+            .big {
+                font:50px ClarendonLight,Georgia;
+                width:1px;
+                text-align:left;
+            }
+            
+            .little {
+                width:1px;
+                text-align:center;
+                padding-right:5px;
+            }
+            
+            .left {
+                display:table-cell;
+                vertical-align:middle;
+            }
+            
+            .ansText {
+                padding-left:10px;
+            }
+            
+            .ansWrap {
+                display:table; /*if table-cell, then it shortens it to the length of the text. If table, it makes it 100% width*/
+                border-style:solid;
+                border-color:#A1C9DB;
+            }
+            
+            .block input[type=radio]:checked + label{
+                border-color:#FF530D;
+                border-style:solid;
+            } /*this does not want to work */
+            
+            #ansDivBlock {
+                padding-left:75px;
+            }
+            
+            body {
+                opacity:.9;
+                font:normal 13px 'Lucida Grande', Arial;
+            }
+            
+            #loginyes {
+                background-color:#FF530D;
+                background: linear-gradient(top, #FF530D, #FE510B);
+                border: 0px;
+                border-radius: 3px;
+                color: white;
+                padding: 6px 20px;
+                text-align: center;
+                height:30px;
+                float:right;
+                text-shadow:none;
+            }
+            
+            .different {
+                color:#FF530D;
+                font: 75px ClarendonLight,Georgia;
+                margin-bottom:30px;
+                margin-top:30px;
+            }
+            
+            /*for the home button font */
+                .normal {
+                    color:black;
+                    text-decoration:none;
+                }
+                @font-face {
+                    font-family: 'FoundationIconsGeneral';
+                    src: url('http://www.zurb.com/playground/fonts/foundation-icons-general.eot');
+                    src: url('http://www.zurb.com/playground/fonts/foundation-icons-general.eot?#iefix') format('embedded-opentype'),
+                         url('http://www.zurb.com/playground/fonts/foundation-icons-general.woff') format('woff'),
+                         url('http://www.zurb.com/playground/fonts/foundation-icons-general.ttf') format('truetype'),
+                         url('http://www.zurb.com/playground/fonts/foundation-icons-general.svg#FoundationIconsGeneral') format('svg');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+                
+                @font-face {
+                  font-family: 'FoundationIconsGeneralEnclosed';
+                  src: url('http://www.zurb.com/playground/fonts/foundation-icons-general-enclosed.eot');
+                  src: url('http://www.zurb.com/playground/fonts/foundation-icons-general-enclosed.eot?#iefix') format('embedded-opentype'),
+                       url('http://www.zurb.com/playground/fonts/foundation-icons-general-enclosed.woff') format('woff'),
+                       url('http://www.zurb.com/playground/fonts/foundation-icons-general-enclosed.ttf') format('truetype'),
+                       url('http://www.zurb.com/playground/fonts/foundation-icons-general-enclosed.svg#FoundationIconsGeneralEnclosed') format('svg');
+                  font-weight: normal;
+                  font-style: normal;
+                }
+                
+                #home {
+                    position:fixed;
+                    margin-left:0px;
+                    margin-right:0px;
+                    margin-top:0px;
+                    font-family:'FoundationIconsGeneral';
+                    font-size:30px;
+                    color:rgba(0,0,0,.25);
+                    text-decoration:none;
+                    padding-left:30px;
+                }
+                
+                #hwrapper {
+                    height:100%;
+                    display:table;
+                    position:fixed;
+                    max-width:1px;
+                }
+                
+                #hw2 {
+                    display:table-cell;
+                    vertical-align:top;
+                }
+                
+                #hcontent {
+                    max-width:100px;
+                    font-family:'FoundationIconsGeneral';
+                    font-size:20px;
+                    color:rgba(0,0,0,.25);
+                    text-decoration:none;
+                    padding-left:30px;
+                    margin-top:-10px;
+                    padding-left:10px;
+                }
+                
+                #hwords {
+                    opacity:.25;
+                    border-radius:0px;
+                    border-left:0px;
+                    color:white;
+                    padding:5px;
+                    margin-left:-15px;
+                    border-bottom-left-radius:12px;
+                    border-bottom-right-radius:12px;
+                    white-space:nowrap; /*what does this do? */
+                    background-color:#FF530D;
+                    opacity:.9;
+                    -webkit-transform: rotate(-90deg);	
+                    -moz-transform: rotate(-90deg);
+                    -ms-transform: rotate(-90deg);
+                    -o-transform: rotate(-90deg);
+                    transform: rotate(-90deg);
+                }
+                
+                #house {
+                    font-family:'FoundationIconsGeneralEnclosed';
+                    font-size:50px;
+                    color:#FF530D;
+                    opacity:.9;
+                }
+            
+        </style>
+        
+        <script type='text/javascript'>
+            function changeBorder(self) {
+                self.style.borderColor='#FF530D'
+            }
+            
+            function changeAllBorder() {
+                document.getElementById('a').style.borderColor='';
+                document.getElementById('b').style.borderColor='';
+                document.getElementById('c').style.borderColor='';
+                document.getElementById('d').style.borderColor='';
+            }
+            
+        </script>
+        
+        <link rel="stylesheet" href="http://yandex.st/highlightjs/7.0/styles/default.min.css">
+        <script src="http://yandex.st/highlightjs/7.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+
+        
+    </head>
+    <body style='padding:0px; margin:0px'>
+        <!--<div style='background-color:#FF530D; width:100%; height:15px; '></div>-->
+        
+        <div id = 'hwrapper'>
+            <div id = 'hw2'><a href = 'home.html' class='normal' title='go home'>
+                <!--<div id = 'hcontent'>v</div>--> <!-- v = arrow; m = home icon -->
+                <!--<div id = 'hwords' style=''>home</div>-->
+                <div id = 'house' style=''>&nbsp;&nbsp;m</div>
+            </a></div>
+        </div>
+        
+        <div id = 'wrapper'>
+            <div id = 'w2'>
+                <!--<div style='background-color:#FF530D; float: right; width:15px; height:500px; display:table-cell;'></div>-->
+                <div id='content'>
+                    <span class='different'>question.</span>
+                    <div class='block'>
+                        <p>Which function header is an example of receiving 1 argument and not returning a value?</p>
+                    </div>
+                    
+                    <form enctype="multipart/form-data">
+                    <div id='ansDivBlock'>
+                        
+                            
+                        
+                            
+                            <label for="id_ans_0">
+                            <div id = 'a' class='block ansWrap' onclick="changeAllBorder();this.style.borderColor='#FF530D'">
+                                <div class='left little'><input type="radio" id="id_ans_0" value="opt1" name="ans" /></div>
+                                <div class='left big'>a</div>
+                                
+                                <div class='left ansText'><code>function funRandNum(myFunVar)</code></div>
+                                
+                            </div>
+                            </label>
+                            
+                            
+                            <label for="id_ans_1">
+                            <div id = 'b' class='block ansWrap' onclick="changeAllBorder();this.style.borderColor='#FF530D'">
+                                <div class='left little'><input type="radio" id="id_ans_1" value="opt2" name="ans" /></div>
+                                <div class='left big'>b</div>
+                                
+                                <div class='left ansText'><code>function funRandNum(myFunVar)</code></div>
+                            </div>
+                            </label>
+                            
+                            
+                            
+                            <label for="id_ans_2">
+                            <div id = 'c' class='block ansWrap' onclick="changeAllBorder();this.style.borderColor='#FF530D'">
+                                <div class='left little'><input type="radio" id="id_ans_2" value="opt3" name="ans" /></div>
+                                <div class='left big'>c</div>
+                                
+                                <div class='left ansText'><code>function y = myDay()</code></div>
+                            </div>
+                            </label>
+                            
+                            
+                            
+                            <label for="id_ans_3">
+                            <div id = 'd' class='block ansWrap' onclick="changeAllBorder();this.style.borderColor='#FF530D'">
+                                <div class='left little'><input type="radio" id="id_ans_3" value="opt4" name="ans" /></div>
+                                <div class='left big'>d</div>
+                                
+                                <div class='left ansText'>Need more information.</div>
+                            </div>
+                            </label>
+                            
+                        
+                    </div>
+                        
+                        <input type="hidden" name="qID" value="31" id="id_qID" /><input type="hidden" name="type" value="1" id="id_type" /><input type="hidden" name="hint" value="7" id="id_hint" />
+                            <div class='block ansWrap'>
+                                <div class='left ansText'>Welcome. You just logged in, didn't you.</div>
+                                <div class='left big'><input type='submit' value='Answer' id='loginyes'></div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+    </body>
+</html>

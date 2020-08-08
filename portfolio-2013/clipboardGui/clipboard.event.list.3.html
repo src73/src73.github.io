@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <link href='iconSquare.png' rel='SHORTCUT ICON'/>
+        <meta name = "viewport" content = "width=device-width"> <!--should make iOS happier -->
+        <title>Select Event</title>
+        <link rel="stylesheet" type="text/css" href="clipboard.new.css" />
+        <link rel="stylesheet" type="text/css" href="clipboard.nav.css" />
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script type="text/javascript" src="fxlib.report.js"></script>
+        <script type="text/javascript" src="fxlib.navCopy.js"></script>
+        <script type="text/javascript" src="fxlib.nav.js"></script>
+        
+    </head>
+
+    <body onload='makePage();' id="body">
+        <div id="nav" class="darkBG">hi!</div>
+        
+        <div id="pageBody">
+            <h2>Select Event</h2>
+            
+            <!--Begin what PHP spits out -->
+                <!--Make sure that it is spit out in reverse order; events with the soonest late times first-->
+            <table style='border-left:none;'>
+                    <thead><tr><td>Event ID</td><td>Date</td><td>Name</td><td>Description</td><td>Location</td><td>Late Time</td></tr></thead>
+                
+                <tbody>
+                    <tr onclick='goTo("clipboard.report.central.doleysh.html?eventid=8182011");' style='cursor:pointer;'><td>8182011</td><td>2011-8-18</td><td>Data Dump</td><td>hi</td><td>Steven's Lair</td><td>2011-08-18 10:00:00</td></tr>
+                    <tr onclick='goTo("clipboard.report.central.doleysh.html?eventid=1234");' style='cursor:pointer;'><td>1234</td><td>2011-08-20</td><td>Registration!</td><td>Well, nothing is really happening. But I bet y'all don't want to come....</td><td>Katie's Lair</td><td>2011-08-20 13:30:00</td></tr>
+                </tbody>
+            </table>
+            <!--end what PHP spits out -->
+            
+        </div>
+        
+        <div id="lightboxOutline" style="width:0px; height:0px;"></div>
+        
+    </body>
+</html>

@@ -1,0 +1,237 @@
+table, th, td, tr {
+    border:.5px dotted grey;
+}
+
+td {
+    padding:3px;
+    border-width:1px;    
+}
+
+table {
+    border-collapse:collapse; 
+}
+
+table.clear, td.clear, th.clear {
+    border-style:hidden;
+    border-color:white;
+    border-collapse:collapse;
+}
+
+a.noExist {
+    text-decoration:none;
+    color:black;
+}
+
+/*Start nav stuff */
+
+@font-face {
+    font-family: "Copperplate Bold Condensed";
+    src: url("http://clipboard.wiflyboy.com/CopperplateTBolCon.ttf");
+}
+
+
+
+.hNav {
+    float:left;
+    width:23%;
+    padding-bottom:0px;
+    padding-top:0px;
+    padding-left:0px;
+    padding-right:0px;
+    text-align:center;
+    top:0px;
+    margin:0px;
+}
+
+.sNav {
+    float:left;
+    width:23%;
+    top:0px;
+    margin-bottom:10px;
+    padding:0px;
+    height:32px;
+}
+
+.vNav {
+    width:190px;
+    padding-top:0px;
+    padding-bottom:0px;
+    height:110px;
+    padding-left:10px;
+    margin-top:10px;
+    margin-bottom:10px;
+    
+}
+
+#nav {
+    /*padding:0px;*/
+}
+
+body {
+    padding:0px;
+    margin-top:0px;
+}
+
+.tNav {
+    width:100%;
+    padding-bottom:30px;
+    padding-top:30px;
+    padding-left:10px; /*update var paddingOfLightboxContent in fxlib.nav.js*/
+    padding-right:10px; /*update var paddingOfLightboxContent in fxlib.nav.js*/
+}
+
+h3.tiny {
+    margin-top:10px;
+}
+
+h3.portN { /*portrait navigation */
+    margin:0px;
+    font-size:30px;
+    padding:0px;
+}
+
+/*End nav stuff*/
+
+@media screen {
+    body {
+        font-family:"Lucida Grande", "Lucida Sans Unicode", Arial, sans-serif;
+        font-size:15px;
+    }
+    
+    thead {
+        font-size:30px;
+        color:white;
+        background:grey;
+    }
+    
+    table, td, tr {
+        border-top:2px solid grey;
+        border-bottom:2px solid grey;
+    }
+
+    
+    td {
+        font-family:"Lucida Grande", "Lucida Sans Unicode", Arial, sans-serif;
+        font-size:15px;
+    }
+    
+    td.absent {
+        background-color:white;
+    }
+    
+    td.ontime {
+        background-color:#65FF61 ;
+    }
+    
+    td.late {
+        background-color:#F5FF43;
+    }
+    
+    td.error {
+        background-color:red;
+    }
+    
+    td.overriden {
+        background-color:#C9FF55;
+    }
+    
+    td.excused {
+        background-color:#C9FF55;
+    }
+    
+    .offline {
+        background-color:#C9FF55;
+    }
+    
+    /*for boldness */
+    
+    .bold {
+    font-weight:bold;
+    }
+}
+    
+@media print{
+
+    body {
+        font-family:"Century Gothic", "Times New Roman", Times, serif;
+        font-size:8px;
+    }
+    
+    td {
+        font-family:"Century Gothic", "Times New Roman", Times, serif;
+        font-size:8px;
+        padding-bottom:1px;
+        padding-top:1px;
+}
+    
+    div#alternate-out {
+        display:none;
+    }
+    
+    div#unknown-out {
+    display:none;
+    }
+    
+    div#nav {
+        display:none;
+    }
+    
+    div#pageBody {
+        left:0px;
+    }
+    
+    td.absent {
+        background-color:white;
+    }
+       
+    td.ontime {
+        background-color:#FEF0FF ;
+    }
+    
+    td.late {
+        background-color:#CFCFCF;
+    }
+    
+    td.error {
+        background-color:#656565;
+    }
+    
+    td.overriden {
+        background-color:#CFCFCF;
+    }
+    
+    td.excused {
+        background-color:#CFCFCF;
+    }
+    /*boldness */
+    
+    td.absent_bold {
+        background-color:white;
+        font-weight:bold;
+    }
+       
+    td.ontime_bold {
+        background-color:#FEF0FF;
+        font-weight:bold;
+    }
+    
+    td.late_bold {
+        background-color:#CFCFCF;
+        font-weight:bold;
+    }
+    
+    td.error_bold {
+        background-color:#656565;
+        font-weight:bold;
+    }
+    
+    td.overriden_bold {
+        background-color:#CFCFCF;
+        font-weight:bold;
+    }
+    
+    td.excused_bold {
+        background-color:#CFCFCF;
+        font-weight:bold;
+    }
+}

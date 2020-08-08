@@ -1,0 +1,332 @@
+<!DOCTYPE HTML> 
+<html>
+  <head>
+    <title>Automated Help System</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="css/kube.css" />
+    <link rel="stylesheet" type="text/css" href="css/master.css" />
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script type='text/javascript'>
+      function makePage() {
+        $(function() {
+                //set div visibility to no
+          $('div[class="md"]').hide();
+          // replace markdown text 
+          $('div[class="md"]').after(function(index){
+            converter = new Showdown.converter();
+            return converter.makeHtml(this.textContent);
+          });
+    
+        });
+      }
+      // When ready hide the iOS URL bar. But not really... 
+      window.addEventListener("load",function() {
+              // Set a timeout...
+              setTimeout(function(){
+                      // Hide the address bar!
+                      window.scrollTo(0, 1);
+              }, 0);
+      });
+    </script>
+    <script src="css/showdown.js"> </script>
+    <style>
+      .page {
+        background-color:#000000;
+        color:#FFFFFF;
+        text-align:center;
+      }
+      .logo {
+        width:125px;
+      }
+    </style>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700' rel='stylesheet' type='text/css'>
+    
+  </head>
+  <body onload='makePage();'>
+        <div class = 'wrapper'>
+          <header id = 'header'>
+            <h1 style='display:block;width:100%'>An Automated Help System for Introductory Programming  </h1>
+              <a href = 'portfolio-src73.dotcloud.com'>Steven Cramer</a>, Departments of Cognitive Science and Economics<br>
+              <a href = 'http://filer.case.edu/cxf47'>Dr. Chris Fietkiewicz</a>, Department of Electrical Engineering and Computer Science<br>
+              <i>Presented at Intersections: SOURCE Symposium, 2013, Case Western Reserve University</i>
+          </header>
+          <div id='main'>
+            
+            <div class = 'container row'><h1 class = 'page'>The question</h1></div>
+            <div class='row' id = 'question'>
+              <div class = 'half'>
+                
+                <div class = 'md'>
+Question
+--------
+How do you make learning in an introductory computer programming class more effective?
+                </div>
+              </div>
+              
+              
+              <div class='half'>
+                  <figcaption>Students must learn to write programs both small and large.</figcaption>
+                  <pre>
+function [hNew, vNew] = compute(hOld, vOld, timeStep)
+  a = -9.8;
+  hNew = hOld + vOld * timeStep;
+  vNew = vOld + a * timeStep;
+end</pre>
+              </div>
+            </div>
+            
+            
+            <div class = 'container row'>
+              <div class = 'center'><h1 class = 'page'>The answer</h1></div>
+            </div>
+              
+              <div class = 'row container' id = 'automated'>
+                  <div class = 'half'>
+                    <div class = 'md'>
+An automated solution
+---------------------
+In an ideal world, we would tutor our students one on one. However, this is not always best for busy or shy students. To augment the face to face help available to students, an automated help system would be best. Automated systems of this nature are typically identified as Intelligent Tutoring System (ITS). 
+
+Help system
+-----------
+Problematically, students frequently do not ask for help because they do not know they need it. This problem is especially prevalent with students like our target demographic who are not experts in their field.
+                  </div>
+                </div>
+                <div class = 'half'>
+                  <figcaption>The ITS helps students learn to resolve errors that yield cryptic error messages like this </figcaption>
+                  <pre><span class = 'red'>Maximum recursion limit of 500 reached. Use
+set(0,'RecursionLimit',N)
+to change the limit.  Be aware that exceeding
+your available stack space can
+crash MATLAB and/or your computer.</span></pre>
+                </div>
+
+              </div>
+                
+<div class = 'row container'>
+  <div class = 'half'>
+  </div>
+  
+  <div class = 'half'>
+    <div class = 'md'>
+
+
+    </div>
+  </div>
+</div>
+                
+            <div class = 'container row'>
+              <div class = 'center'><h1 class = 'page'>Interface</h1></div>
+            </div>
+                
+                <div class = 'row container'>
+                  <div class = 'half'>
+                    <div class = 'md'>
+Welcome 
+--------------
+All students start at the welcome screen. While logging in may seem unimportant, the welcome screen sets the tone for the ITS. On this screen, students
+
+- answer a question
+- give the ITS permission to help them.
+
+For students who are terrified of either asking questions or admitting that they need help, this easy question is a gateway into the world of more complicated questions later in the system.
+                    </div>
+                  </div>
+                  <div class = 'half'>
+                      <figcaption>Welcome screen</figcaption>
+                      <img src = 'pic/ITS_welcome.jpg'>
+                  </div>
+                </div>
+                
+                 <div class = 'row container'>
+                  <div class = 'half'>
+                    <div class = 'md'>
+Question screen 
+--------------
+Questions are where the student learns. Primarly, learning is done though analogy; students will answer one question, and then answer another that is slightly related. Answering questions in this fashion, they will develop a feel for a particular concept.
+
+This question is very simple and designed to help students make sure they understand this syntax before they are asked more complicated questions:
+
+> Into the command window you have entered
+>
+> `data = [10 -10 -20 10]`
+>
+> Then, you enter
+>
+> `data <= 0`
+>
+> What is the output?
+                    </div>
+                  </div>
+                  <div class = 'half'>
+                    <figure>
+                      <img src = 'pic/question_array.jpg'>
+                    </figure>
+                  </div>
+                </div>
+                
+                <div class = 'row'>
+                  <div class = 'half'>
+                    <div class = 'md'>
+Hints
+-----
+Also problematic is the ITS hint structure. Students will either use them too much such that the ITS answers the question for them, or they will ignore the hints and not learn. Our ITS...
+
+- automatically shows one hint after the student answers a question incorrectly. This way, students do not need to know enough to ask for more help. 
+- only provides one hint level. If the does not understand, he will be asked a different question.
+
+
+
+
+                    </div>
+                  </div>
+                  <div class = 'half'>
+                    <figure>
+                      <img src = 'pic/question_array_hint.jpg'>
+                    </figure>
+                  </div>
+                </div>
+                
+                <div class = 'container row'>
+                  <div class = 'center'><h1 class = 'page'>Algorithm</h1></div>
+                </div>
+                
+                <div class = 'row container'>
+                  <div class = 'full'>
+                    <div class = 'md'>
+Keeping score
+---------------
+A student's estimated competence level on one skill is represented as a number. A student starts at `2.0` and every answer changes the number:
+
+- correct answer: `+0.25`
+- correct answer after hint: `+0.15`
+- incorrect answer after hint: `-0.35`
+
+Question level
+--------------
+Every question is assigned a difficulty level. A difficulty of `1` is fairly easy, and a difficulty of `2` is rather tricky. The system has support for higher (and lower) levels of questions. 
+
+Serve a question
+-----------
+Questions should match the student's estimated competency level. To serve a question, the ITS
+
+1. gets the student's competency level for the skill
+2. truncates the result to yield an integer that corresponds to a difficulty level
+3. asks a random question with the specified difficulty level
+
+Evaluating an answer
+--------------------
+
+4. First attempt
+    - If the answer is correct, the ITS serves a new question. 
+    - If not, it re-displays the question and displays a hint
+5. Second attempt
+    - Regardless of answer, the ITS serves a new question. 
+
+Pedagogy
+----------
+An initial question level of `2` means the ITS first asks the student a fairly difficult question. If the student answers correctly, he will continue to see more difficult questions. If he answers incorrectly, the system will offer him easier questions until he learns enough to correctly answer the easy questions. Once he reaches a higher competency level, he will see more difficult questions.
+
+This algorithm means that:
+
+- advanced students are challenged without wading through lots of easy questions 
+- struggling students receive questions at their level
+- once struggling students start to understand the content, they start to see more advanced questions. If they cannot handle the more advanced content, they will return to the easier questions.
+
+
+                    </div>
+                  </div>
+                </div>
+                
+                <div class = 'container row'>
+                  <div class = 'center'><h1 class = 'page'>Technical details</h1></div>
+                </div>
+                
+                <div class = 'row'>
+                  <div class = 'half'>
+                    <div class = 'md'>
+Server stack
+-----
+The ITS is written in [Python](http://www.python.org) using the [Django](https://www.djangoproject.com) framework and a [MySQL](http://www.mysql.com/products/community/) database. [Apache](http://httpd.apache.org) is used to serve static webpages and interface with the user's web browser.
+
+This stack is comparable to the stack that powers Instagram, Pintrest, and other modern web applications.
+
+Front end
+---------
+The front end that the user sees is written using modern techniques in pure HTML and CSS. 
+                    </div>
+                  </div>
+                  
+                  <div class = 'half'>
+                    <div class = 'row container'>
+                      <div class = ' centered' style='text-align:center'><img alt='User' class = 'logo' src = 'pic/user.png'></div>
+                    </div>
+                    <div class = 'row container'>
+                      <div class = ' centered' style='text-align:center'><img alt='Apache' class = 'logo' src = 'http://www.apache.org/images/feather.gif'></div>
+                    </div>
+                    <div class = 'row container'>
+                      <div class = 'centered' style='text-align:center'><img class = 'logo'  alt = 'Django' src = 'pic/django.png'></div>
+                    </div>
+                    <div class = 'row container'>
+                      <div class = 'full' style='text-align:center'><img alt='Python' class = 'logo' src = 'pic/python.png'></div>
+                    </div>
+                    <div class = 'row container'>
+                      <div class = 'full' style='text-align:center'><img alt='MySQL' class = 'logo' src = 'pic/mysql.png'></div>
+                    </div>
+                    <div class = 'row container'>
+                      <div class = 'full' style='text-align:center'><img alt='Server' style='height:60px' src = 'pic/server.png'></div>
+                    </div>
+                  </div>
+                  
+                  <div class = 'row'>
+                    <div class = 'half'>
+                      <div class = 'md'>
+
+                      </div>
+                    </div>
+                </div>
+                
+                
+                
+                
+                <div class = 'container row'>
+                  <div class = 'center'><h1 class = 'page'>Thanks</h1></div>
+                </div>
+                
+                <div class = 'row container'>
+                  <div class = 'half'>
+                    <div class = 'md'>
+Research sponsors
+--------
+
+- Faculty Sponsor [Dr. Chris Fietkiewicz](http://filer.case.edu/cxf47)
+- [SOURCE](http://www.case.edu/provost/source/) (Support of Undergraduate Research & Creative Endeavors) Office
+- [Case Alumni Association](http://www.casealum.org)
+- [Department of Electrical Engineering and Computer Science](http://engineering.case.edu/eecs/)
+- [Case Western Reserve University](https://www.case.edu)
+- [Dr. Susan Cramer](http://www.uwosh.edu/facstaff/cramer/), College of Education and Human Services, University of Wisconsin Oshkosh
+                    </div>
+                  </div>
+                  
+                  <div class = 'half'>
+                    <div class = 'md'>
+This e-poster
+---------
+- [Kube CSS Framework](http://imperavi.com/kube/)
+- [Showdown.js](http://www.showdown.im/), a MarkDown converter for JavaScript.
+- [User](http://thenounproject.com/noun/user/#icon-No2727) designed by <a href="" target="_blank">[Luis Prado](http://thenounproject.com/Luis) from The Noun Project
+- [Server](http://thenounproject.com/noun/server/#icon-No14182) designed by [aLf](http://thenounproject.com/aLf) from The Noun Project
+                    </div>
+                  </div>
+                </div>
+                
+                
+                
+                
+                
+        <!--end of document divs-->
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

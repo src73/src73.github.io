@@ -1,0 +1,4 @@
+Added our names and fixed one bug where the names would float up to the top line.. stupid computers. 
+
+Now I'm going to bed. I hope. 
+

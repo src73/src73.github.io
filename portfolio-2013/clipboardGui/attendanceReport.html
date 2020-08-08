@@ -1,0 +1,38 @@
+<html>
+    <head>
+        
+        <meta name = "viewport" content = "width=device-width"> <!--should make iOS happier -->
+        <link href='iconSquare.png' rel='SHORTCUT ICON'/>
+        <title>Select Report</title>
+        <link rel="stylesheet" type="text/css" href="clipboard.new.css" />
+        <link rel="stylesheet" type="text/css" href="clipboard.nav.css" />
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script type="text/javascript" src="fxlib.report.js"></script>
+        <script type="text/javascript" src="fxlib.navCopy.js"></script>
+        <script type="text/javascript" src="fxlib.nav.js"></script>
+        
+    </head>
+
+    <body onload='makePage();' id="body">
+        <div id="nav" class="darkBG">hi!</div>
+        
+        <div id="pageBody">
+            
+            <!--Begin what PHP spits out -->
+                <p>You are viewing the people in attendance for event 2333 that are in  that are in All Bands. <br />Late times are determined using a late time of 2013-02-17 19:12:00.  </p>
+             
+                 <table>
+                     <tbody>
+                             <tr ><td class="late" >Brands</td><td class="late" >Bob</td><td class="late" >3507</td><td class="late" >Late</td><td class="late" >2013-02-17 19:13:32</td></tr><tr ><td class="absent" >Brands</td><td class="absent" >Mary</td><td class="absent" >3506</td><td class="absent" >Absent</td><td class="absent" ></td></tr><tr ><td class="ontime" >Me</td><td class="ontime" >Mister</td><td class="ontime" >1100401</td><td class="ontime" >On Time</td><td class="ontime" >2013-02-17 19:11:58</td></tr><tr ><td class="absent" >See</td><td class="absent" >Mister</td><td class="absent" >3505</td><td class="absent" >Absent</td><td class="absent" ></td></tr><tr ><td class="absent" >Spartans</td><td class="absent" >Case</td><td class="absent" >12345678</td><td class="absent" >Absent</td><td class="absent" ></td></tr><tr ><td class="late" >Weitzel</td><td class="late" >Dr</td><td class="late" >31415</td><td class="late" >Late</td><td class="late" >2013-02-17 19:12:57</td></tr>	</tbody>
+                 </table>
+             
+                 <div id='alternate-out'>No alternate times were found. All students signed in only once.</div><br /><div id='unknown-out'>No unknown, uploaded sign in attempts were found.</div>
+
+            <!--end what PHP spits out -->
+            
+        </div>
+        
+        <div id="lightboxOutline" style="width:0px; height:0px;"></div>
+        
+    </body>
+</html>

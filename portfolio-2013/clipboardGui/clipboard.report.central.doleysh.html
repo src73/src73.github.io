@@ -1,0 +1,86 @@
+<html>
+    <head>
+        
+        <meta name = "viewport" content = "width=device-width"> <!--should make iOS happier -->
+        <link href='iconSquare.png' rel='SHORTCUT ICON'/>
+        <title>Select Report</title>
+        <link rel="stylesheet" type="text/css" href="clipboard.new.css" />
+        <link rel="stylesheet" type="text/css" href="clipboard.nav.css" />
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script type="text/javascript" src="fxlib.report.js"></script>
+        <script type="text/javascript" src="fxlib.navCopy.js"></script>
+        <script type="text/javascript" src="fxlib.nav.js"></script>
+        
+        <script type="text/javascript">
+        
+        function getUrlVars() {
+            var vars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                    vars[key] = value;
+            });
+            return vars;
+        }
+        
+            document.forms["form"]["eventid"].value=getUrlVars()["eventid"]
+        </script>
+        
+    </head>
+
+    <body onload='makePage();' id="body">
+        <div id="nav" class="darkBG">hi!</div>
+        
+        <div id="pageBody">
+            
+            <!--Begin what PHP spits out -->
+                <!--Make sure that it is spit out in reverse order; events with the soonest late times first-->
+                        <h2>Select Report</h2>
+                            <form action="attendanceReport.html" method="get" name="form">
+                                <p>Event ID:</p> <input type="text" name="eventid" value="1234" /><br /><br />
+                        
+                            Select a Band:<br />
+                                    
+                            
+                            <table class = 'clear'>
+                            <tbody>
+                            <tr>
+                            
+                            <td>
+                            Master List<br />
+                            <input type="radio" name="groupid" value="0" />Directors Choice Band<br /><input type="radio" name="groupid" value="1" />Simpson Band<br /><input type="radio" name="groupid" value="2" />Kitty Kat Band<br /></td>
+                            <td style="color:grey">
+                            Cross-Reference List (Boldness)<br />
+                            <input type="radio" name="bold" value="0" />Directors Choice Band<br /><input type="radio" name="bold" value="1" />Simpson Band<br /><input type="radio" name="bold" value="2" />Kitty Kat Band<br /></td>
+                            </tr>
+                            </tbody>
+                            </table>
+                            
+                            <input type="radio" name="groupid" value="all" checked/>All Bands<br />
+                            
+                            <input type="submit" value="Get Report" /><br /><br />
+                            
+                            </form>
+                            <br />
+                        <hr />
+                        <h3>Get Absent List</h3>
+                            
+                            <p>A live-updating list of absent students.</p>
+                            <form action="attendanceReport.html" method="get">
+                            <p>Event ID:<br /><input type="text" name="eventid" value = "1234"/></p><br />
+                            
+                            Select a Band:<br />
+                            
+                            
+                            
+                            <input type="radio" name="groupid" value="0" />Directors Choice Band<br /><input type="radio" name="groupid" value="1" />Simpson Band<br /><input type="radio" name="groupid" value="2" />Kitty Kat Band<br /><input type="radio" name="groupid" value="all" checked/>All Bands<br />
+                            
+                            <input type="submit" value="Get Report" /><br /><br />
+                            
+                            </form>
+            <!--end what PHP spits out -->
+            
+        </div>
+        
+        <div id="lightboxOutline" style="width:0px; height:0px;"></div>
+        
+    </body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Email Humans</title>
+            <link rel='icon' href='/static/favicon.gif' type ='image/gif'>
+            <style type='text/css'>
+            
+                body{
+                    background: #e1e1e1 url(http://thrivesolo.com/img/hatch.png) repeat fixed;
+                }
+                
+                #wrapper {
+                    display:table;
+                    height:100%;
+                    width:100%;
+                }
+                
+                #w2{
+                    display:table-cell;
+                    vertical-align:middle;
+            
+                }
+                
+                #content {
+                    max-width:700px;
+                    margin-left:auto;
+                    margin-right:auto;
+                    padding:0px;
+                }
+                
+                #bottomFill {
+                    display:table-cell;
+                    height:100px;
+                }
+                
+                .block {
+                    padding:10px;
+                    margin:10px;
+                    background-color:#A1C9DB;
+                    width:100%;
+                    opacity:.85;
+                    border-radius:15px;
+                    border-width:5px;
+                }
+                
+                .little {
+                    width:1px;
+                    text-align:center;
+                    padding-right:5px;
+                }
+                
+                .left {
+                    display:table-cell;
+                    vertical-align:middle;
+                }
+                
+                .ansText {
+                    padding-left:10px;
+                }
+                
+                .ansWrap {
+                    display:table; /*if table-cell, then it shortens it to the length of the text. If table, it makes it 100% width*/
+                    border-style:solid;
+                    border-color:#A1C9DB;
+                }
+                
+                .block input[type=radio]:checked + label{
+                    border-color:#FF530D;
+                    border-style:solid;
+                } /*this does not want to work */
+                
+                #ansDivBlock {
+                    padding-left:75px;
+                }
+                
+                body {
+                    opacity:.9;
+                    font:normal 13px 'Lucida Grande', Arial;
+                }
+                
+                .different {
+                    color:#FF530D;
+                    font: 75px ClarendonLight,Georgia;
+                    margin-bottom:30px;
+                    margin-top:30px;
+                    opacity:.9;
+                }
+                
+                body, html {
+                    padding:0px;
+                    margin:0px;
+                    width:100%;
+                    height:100%;
+                }
+                
+                .wrap {
+                    display:table;
+                }
+                
+
+                
+                h1 {
+                    color:rgba(0, 0, 0, 0.77);
+                    font: 75px ClarendonLight,Georgia;
+                    margin-bottom:30px;
+                    margin-top:30px;
+                }
+                
+                .normal {
+                    color:black;
+                    text-decoration:none;
+                }
+                
+                /*Only used in login.html*/
+                
+                .formGo {
+                    background-color:#FF530D;
+                    opacity:1;
+                    background: linear-gradient(top, #FF530D, #FE510B);
+                    border: 0px;
+                    border-radius: 3px;
+                    color: white;
+                    padding: 6px 20px;
+                    text-align: center;
+                    height:30px;
+                    text-shadow:none;
+                    float:right;
+                }
+                
+                input.flat {
+                    width:200px;
+                    height:30px;
+                    margin:0px;
+                    border: 0px;
+                    border-radius:3px;
+                }
+                
+                form {
+                    padding:0px;
+                    margin:0px;
+                }
+                
+                input {
+                    padding-left:5px;
+                    padding-right:5px;
+                    padding-top: 0px;
+                    padding-bottom: 0px;
+                    margin-left:10px;
+                    margin-right:10px;
+                }
+                
+                
+                /* Only used on question.html */
+                
+                #hint {
+                    background-color:#605655/*#B4A5BA*//*#F0C900*/;
+                    margin-left:2000px;
+                    color:white;
+                    border-radius:15px;
+                    padding:10px;
+                    opacity:0;
+                    max-width:300px;
+                    /*float:right;*/
+                }
+                
+                .big {
+                    font:50px ClarendonLight,Georgia;
+                    width:1px;
+                    text-align:left;
+                }
+                
+                code {
+                    display:inline;
+                    /*padding:15px;*/
+                    /*background-color:#e1e1e1;*/
+                    font-weight:bold;
+                }
+                
+                pre {
+                    margin-left:20px;
+                }
+                
+                pre code {
+                    border:5px;
+                    border-radius:5px;
+                    border-color:#e1e1e1;
+                }
+                
+                /*for the home button font */
+                @font-face {
+                    font-family: 'FoundationIconsGeneral';
+                    src: url('http://www.zurb.com/playground/fonts/foundation-icons-general.eot');
+                    src: url('http://www.zurb.com/playground/fonts/foundation-icons-general.eot?#iefix') format('embedded-opentype'),
+                         url('http://www.zurb.com/playground/fonts/foundation-icons-general.woff') format('woff'),
+                         url('http://www.zurb.com/playground/fonts/foundation-icons-general.ttf') format('truetype'),
+                         url('http://www.zurb.com/playground/fonts/foundation-icons-general.svg#FoundationIconsGeneral') format('svg');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+                
+                @font-face {
+                  font-family: 'FoundationIconsGeneralEnclosed';
+                  src: url('http://www.zurb.com/playground/fonts/foundation-icons-general-enclosed.eot');
+                  src: url('http://www.zurb.com/playground/fonts/foundation-icons-general-enclosed.eot?#iefix') format('embedded-opentype'),
+                       url('http://www.zurb.com/playground/fonts/foundation-icons-general-enclosed.woff') format('woff'),
+                       url('http://www.zurb.com/playground/fonts/foundation-icons-general-enclosed.ttf') format('truetype'),
+                       url('http://www.zurb.com/playground/fonts/foundation-icons-general-enclosed.svg#FoundationIconsGeneralEnclosed') format('svg');
+                  font-weight: normal;
+                  font-style: normal;
+                }
+                
+                #home {
+                    position:fixed;
+                    margin-left:0px;
+                    margin-right:0px;
+                    margin-top:0px;
+                    font-family:'FoundationIconsGeneral';
+                    font-size:30px;
+                    color:rgba(0,0,0,.25);
+                    text-decoration:none;
+                    padding-left:30px;
+                }
+                
+                #hwrapper {
+                    height:100%;
+                    display:table;
+                    position:fixed;
+                    max-width:1px;
+                }
+                
+                #hw2 {
+                    display:table-cell;
+                    vertical-align:top;
+                }
+                
+                #hcontent {
+                    max-width:100px;
+                    font-family:'FoundationIconsGeneral';
+                    font-size:20px;
+                    color:rgba(0,0,0,.25);
+                    text-decoration:none;
+                    padding-left:30px;
+                    margin-top:-10px;
+                    padding-left:10px;
+                }
+                
+                #hwords {
+                    opacity:.25;
+                    border-radius:0px;
+                    border-left:0px;
+                    color:white;
+                    padding:5px;
+                    margin-left:-15px;
+                    border-bottom-left-radius:12px;
+                    border-bottom-right-radius:12px;
+                    white-space:nowrap; /*what does this do? */
+                    background-color:#FF530D;
+                    opacity:.9;
+                    -webkit-transform: rotate(-90deg);	
+                    -moz-transform: rotate(-90deg);
+                    -ms-transform: rotate(-90deg);
+                    -o-transform: rotate(-90deg);
+                    transform: rotate(-90deg);
+                }
+                
+                #house {
+                    font-family:'FoundationIconsGeneralEnclosed';
+                    font-size:50px;
+                    color:#FF530D;
+                    opacity:.9;
+                }
+                
+                /*Used in fileup */
+                .error {
+                    background-color:#605655;
+                    opacity:.9;
+                    color:#e1e1e1 url(http://thrivesolo.com/img/hatch.png) repeat fixed;;
+                }
+                
+            </style>
+        
+        
+    <style type='text/css'>
+        textarea.flat {
+            margin:0px;
+            border: 0px;
+            border-radius:3px;
+            padding:5px;
+        }
+        
+        #id_docfile {
+            margin:0px;
+            border: 0px;
+            border-radius:3px;
+        }
+        
+
+        
+    </style>
+    
+
+    </head>
+    
+    <body >
+        
+        
+         <!-- putting a { %block homebutton%%endblock% } will basically erase the homebutton on a template.-->
+        <div id = 'hwrapper'>
+        <div id = 'hw2'><a href = 'home.html' class='normal' title='go home'>
+            <!--<div id = 'hcontent'>v</div>--> <!-- v = arrow; m = home icon -->
+            <!--<div id = 'hwords' style=''>home</div>-->
+            <div id = 'house' style=''>&nbsp;&nbsp;m</div>
+        </a></div>
+        </div>
+        
+        <a href='/' class='normal'><div id = 'home'> </div></a>
+        
+        <div id = 'wrapper'>
+        <div id = 'w2'>
+            <div id='content'>
+        
+
+<h1><span class='different'>okay.</span><br>what's going wrong?</h1>
+    
+    
+    <form method = 'post'  enctype="multipart/form-data">
+    <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='jjkANkAtM9otEwB8wFMQUnFfkEcSvzK5' /></div>
+    
+    <div class='block ansWrap'>
+        <div class='left'>
+            <input type='text' class='flat' name='hwNumber' id = 'id_hwNumber' placeholder='Homework or Lab (number only)'>
+            <input type='text' name='problemNumber' id='id_problemNumber' class='flat' placeholder='Problem (number only)'>
+        </div>
+    </div>
+
+    <div class='block ansWrap'>
+        <div class='left'>
+            <textarea id="id_issue" rows="10" cols="57" name="issue" class='flat' placeholder="Enter a description of your problem here. Please tell us what's going wrong and what you need help understanding."></textarea>
+        </div>
+    </div>
+
+    <div class='block ansWrap'>
+        <div class='left'>
+            Upload your .m File
+            <input type="file" name="docfile" id="id_docfile" />
+        </div>
+    </div>
+    
+    
+    
+    <div class='block ansWrap'>
+        
+        <div class='left'>By uploading, you permit your submission to be used in lab research. You must still submit on Blackboard.</div>
+        
+        <div class='left big'><input type='submit' value='Submit' class='formGo'></div>
+    </div>
+
+
+            </div>
+        </div>
+        </div>
+    </body>
+</html>

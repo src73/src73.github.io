@@ -1,0 +1,68 @@
+/*this is what is on splash screen AND normal nav. Styles not on splash nav are in new.css*/
+
+@font-face {
+    font-family: "Copperplate Bold Condensed";
+    src: url("http://clipboard.wiflyboy.com/CopperplateTBolCon.ttf");
+}
+
+
+
+#c1, .time {
+    background:#7597B1;
+    color:black;
+}
+
+#c3, .people {
+    background:#E75D5B;
+    color:black;
+}
+
+#c4, .points {
+    background:#702D2C;
+    color:#FCFFDB;
+}
+
+#c6, .stuff {
+    background:#313F4A;
+    color:#FCFFDB;
+}
+
+#c7, #c2, #c5, .other {
+    background:#FCFFDB; /*this is a yellowish color. */
+    /*background:#E1E1E1;*/ /*greyish color. */
+}
+
+.darkBG {
+    background:#2F342E;
+}
+
+a.cLink {
+    text-decoration:none;
+    /*color:black;*/
+    font-size:17px;
+    text-align:left;
+    font-family:"Lucida Grande", "Lucida Sans Unicode", Arial, sans-serif;
+}
+
+.white {
+    color:white;
+}
+
+.black {
+    color:black;
+}
+
+h3 {
+    font-family:"Copperplate Bold Condensed", sans-serif;
+}
+
+h3.tiny {
+    text-align:left;
+    font-size:50px;
+    margin-bottom:10px;
+}
+
+.fill {
+    padding-top:10px;
+    padding-top:10px;
+}
