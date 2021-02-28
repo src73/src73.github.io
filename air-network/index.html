@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Radar Loop with Leaflet</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+	<link rel="stylesheet" href="plugins/leaflet/leaflet.css" />
+	<script src="plugins/leaflet/leaflet.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src='air-data.js'></script>
+	<link rel="stylesheet" href="style/style2.css"/>	
+	<!--<script src="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-image/v0.0.4/leaflet-image.js"></script>-->
+	<script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
+</head>
+<body>	        
+	<div id="map" style="width:100%; height:100%; "></div>
+
+<!--
+* 2019 air data showing the number of seats flown by airlines on routes that start in the United States
+* line weight corresponds to the number of seats available
+* routes with 1 million seats flown per year (or more) are shown in red. There are about 50 such routes
+* the smallest route shown is one with the annual seats flown between between ORD and ATW. 
+-->
+
+	<script>
+
+
+
+var baseMap = new L.StamenTileLayer("toner-lite", {
+                        detectRetina: true
+                    })
+
+
+
+
+map = L.map("map", {
+	center: [25.878994400196202, -107.49023437500001],
+	zoom: 3,
+    //minZoom: 4,
+    //maxZoom: 10,
+	layers: [baseMap],
+        zoomControl: true
+	});
+
+
+latlngs.reverse().map(function(l) {
+
+
+	// fix routes to Japan
+	// https://github.com/leaflet/leaflet/issues/82
+	if(l.coords[0][1] > 100) {
+		l.coords[0][1] = l.coords[0][1] - 360
+	}
+	if(l.coords[1][1] > 100) {
+		l.coords[1][1] = l.coords[1][1] - 360
+	}
+
+	var theColor = 'blue'
+	var mult = 1
+
+	if (l.seats > 1000000) {
+		theColor='red'
+		mult = 2
+	}
+
+	L.polyline(l.coords, {
+		color: theColor, 
+		weight: 1 * l.seats / 2266056 * mult,
+		opacity:0.5
+}).addTo(map);
+})
+
+map.attributionControl.addAttribution(' | 2019 air travel data from <a href="https://www.transtats.bts.gov/">Bureau of Transportation Statistics</a>')
+
+// var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
+
+
+
+	</script>
+</body>
+</html>
