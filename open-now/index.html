@@ -1,5 +1,6 @@
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes">
     <title>Leaflet.timeline</title>
     <link
       rel="stylesheet"
@@ -123,7 +124,7 @@
         timeline.on("change", function (e) {
           updateList(e.target);
         });
-        timelineControl.setTime("2024-05-11 " + (new Date()).toLocaleTimeString('en-US', {timeStyle:'short'})); 
+        timelineControl.setTime("2024-05-11 " + (new Date()).toLocaleTimeString('en-US', {timeStyle:'short', hour12: false, timezone:'America/Los_Angeles'})); 
         updateList(timeline);
       }
     </script>
