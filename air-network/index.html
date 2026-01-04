@@ -11,9 +11,7 @@
 	<script src="plugins/leaflet/leaflet.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src='air-data.js'></script>
-	<link rel="stylesheet" href="style/style2.css"/>	
-	<!--<script src="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-image/v0.0.4/leaflet-image.js"></script>-->
-	<script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
+	<link rel="stylesheet" href="style/style2.css"/>
 </head>
 <body>	        
 	<div id="map" style="width:100%; height:100%; "></div>
@@ -27,11 +25,15 @@
 
 	<script>
 
+// Detect if retina display
+var isRetina = window.devicePixelRatio > 1;
+var retinasuffix = isRetina ? '@2x' : '';
 
-
-var baseMap = new L.StamenTileLayer("toner-lite", {
-                        detectRetina: true
-                    })
+// Use Carto Light tiles
+var baseMap = L.tileLayer('https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}' + retinasuffix + '.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    maxZoom: 20
+})
 
 
 
