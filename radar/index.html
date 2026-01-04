@@ -34,10 +34,17 @@ var coords = {};
 coords.sf = [37.6, -122.4]
 coords.chi = [41.57, -88.214]
 
-var baseMap = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+// Detect retina display
+var isRetina = window.devicePixelRatio >= 2;
+var tileUrl = isRetina
+	? 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png'
+	: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';
+
+var baseMap = L.tileLayer(tileUrl, {
 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
 	subdomains: 'abcd',
-	maxZoom: 20
+	maxZoom: 20,
+	tileSize: 256
 })
 
 
