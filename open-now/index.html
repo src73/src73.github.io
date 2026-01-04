@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes">
-    <title>Leaflet.timeline</title>
+    <title>What's Open Now (demo)</title>
     <link
       rel="stylesheet"
       href="src/leaflet-1.6.0.css"
@@ -41,6 +41,10 @@
         margin: 0;
         margin-bottom: 15px;
       }
+
+      .leaflet-tile {
+        filter: grayscale(80%);
+      }
     </style>
   </head>
   <body>
@@ -56,13 +60,13 @@
     <!--https://skeate.dev/Leaflet.timeline/-->
 
     <script>
-      window.alert("Shows what's open now (ish)");
+      window.alert("Blue shaded regions show clusters of open businesses that are walking-distance apart. Move the time slider to see open businesses at different times of the day. Currently only shows Saturdays. All data from OpenStreetMap.");
       var osmUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
       var osmAttrib =
         '&copy; <a href="https://openstreetmap.org/copyright">' +
         "OpenStreetMap</a> contributors";
       var osm = L.tileLayer(osmUrl, {
-        maxZoom: 18,
+        // maxZoom: 18,
         attribution: osmAttrib,
         noWrap: true,
       });
@@ -100,11 +104,10 @@
         var getInterval = function (quake) {
           // earthquake data only has a time, so we'll use that as a "start"
           // and the "end" will be that + some value based on magnitude
-          // 18000000 = 30 minutes, so a quake of magnitude 5 would show on the
-          // map for 150 minutes or 2.5 hours
+          // 18000000 = 30 minutes
           return {
             start: Math.floor(new Date(quake.properties.time).getTime()),
-            end: Math.floor(new Date(quake.properties.time).getTime()) + 2 * 1800000,
+            end: Math.floor(new Date(quake.properties.time).getTime()) + 2* 1800000 - 1,
           };
         };
 
@@ -128,6 +131,6 @@
         updateList(timeline);
       }
     </script>
-    <script src="open-saturday.js"></script> <!-- it loads data through a callback function. Annoying. Unprofessional. Practical --> 
+    <script src="open-saturday-2.js"></script> <!-- it loads data through a callback function. Annoying. Unprofessional. Practical. --> 
   </body>
 </html>
