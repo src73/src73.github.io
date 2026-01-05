@@ -108,8 +108,9 @@ latlngs.reverse().map(function(l) {
 // Update line weights when zoom changes
 map.on('zoomend', updateLineWeights);
 
-// Track highlighted routes
+// Track highlighted routes and outline polylines
 var highlightedRoutes = [];
+var outlinePolylines = [];
 
 // Helper function to check if two coordinates are the same
 function coordsEqual(coord1, coord2) {
@@ -118,7 +119,14 @@ function coordsEqual(coord1, coord2) {
 
 // Function to reset all highlights
 function resetHighlights() {
-	highlightedRoutes.forEach(function(item) {
+	// Remove all outline polylines
+	outlinePolylines.forEach(function(outline) {
+		map.removeLayer(outline);
+	});
+	outlinePolylines = [];
+
+	// Reset all polylines to normal
+	polylines.forEach(function(item) {
 		item.polyline.setStyle({
 			opacity: 0.5,
 			color: item.data.color
@@ -135,8 +143,11 @@ function highlightConnectedRoutes(clickedItem) {
 	var endpoints = clickedItem.data.coords;
 	var endpoint1 = endpoints[0];
 	var endpoint2 = endpoints[1];
+	var zoom = map.getZoom();
+	var zoomMult = getZoomMultiplier(zoom);
 
-	// Find all connected routes
+	// First pass: identify connected routes
+	var connectedSet = new Set();
 	polylines.forEach(function(item) {
 		var itemEndpoints = item.data.coords;
 		var itemEnd1 = itemEndpoints[0];
@@ -145,12 +156,39 @@ function highlightConnectedRoutes(clickedItem) {
 		// Check if this route shares an endpoint with the clicked route
 		if (coordsEqual(endpoint1, itemEnd1) || coordsEqual(endpoint1, itemEnd2) ||
 		    coordsEqual(endpoint2, itemEnd1) || coordsEqual(endpoint2, itemEnd2)) {
-			// Highlight this route
+			connectedSet.add(item);
+			highlightedRoutes.push(item);
+		}
+	});
+
+	// Second pass: apply styling
+	polylines.forEach(function(item) {
+		if (connectedSet.has(item)) {
+			// Create yellow outline (wider line behind)
+			var baseWeight = 1 * item.data.seats / 2266056 * item.data.mult;
+			var currentWeight = baseWeight * zoomMult;
+
+			var outline = L.polyline(item.data.coords, {
+				color: '#fffd01',
+				weight: currentWeight + 6,  // Make outline 6 pixels wider
+				opacity: 0.9
+			}).addTo(map);
+			outlinePolylines.push(outline);
+
+			// Keep original color but increase opacity
 			item.polyline.setStyle({
 				opacity: 0.9,
-				color: '#00ff00'  // Bright green for highlighted routes
+				color: item.data.color
 			});
-			highlightedRoutes.push(item);
+
+			// Bring original line to front
+			item.polyline.bringToFront();
+		} else {
+			// Make non-connected routes black and white
+			item.polyline.setStyle({
+				opacity: 0.3,
+				color: '#888888'
+			});
 		}
 	});
 }
