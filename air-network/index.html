@@ -29,9 +29,9 @@
 var isRetina = window.devicePixelRatio > 1;
 var retinasuffix = isRetina ? '@2x' : '';
 
-// Use Carto Light tiles
-var baseMap = L.tileLayer('https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}' + retinasuffix + '.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+// Use Stamen Toner Lite tiles via Stadia Maps
+var baseMap = L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_toner_lite/{z}/{x}/{y}' + retinasuffix + '.png', {
+    attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
     maxZoom: 20
 })
 
@@ -47,6 +47,26 @@ map = L.map("map", {
         zoomControl: true
 	});
 
+// Store polylines with their data for zoom-based scaling
+var polylines = [];
+
+// Function to calculate zoom multiplier (lines get thicker when zoomed in)
+function getZoomMultiplier(zoom) {
+	// At zoom 3 (country level), multiplier is 1
+	// At zoom 10+ (city level), multiplier is ~5
+	return Math.pow(1.25, zoom - 3);
+}
+
+// Function to update all line weights based on current zoom
+function updateLineWeights() {
+	var zoom = map.getZoom();
+	var zoomMult = getZoomMultiplier(zoom);
+
+	polylines.forEach(function(item) {
+		var baseWeight = 1 * item.data.seats / 2266056 * item.data.mult;
+		item.polyline.setStyle({ weight: baseWeight * zoomMult });
+	});
+}
 
 latlngs.reverse().map(function(l) {
 
@@ -68,12 +88,24 @@ latlngs.reverse().map(function(l) {
 		mult = 2
 	}
 
-	L.polyline(l.coords, {
-		color: theColor, 
-		weight: 1 * l.seats / 2266056 * mult,
+	var baseWeight = 1 * l.seats / 2266056 * mult;
+	var zoomMult = getZoomMultiplier(map.getZoom());
+
+	var polyline = L.polyline(l.coords, {
+		color: theColor,
+		weight: baseWeight * zoomMult,
 		opacity:0.5
-}).addTo(map);
+	}).addTo(map);
+
+	// Store polyline and its data for later updates
+	polylines.push({
+		polyline: polyline,
+		data: { seats: l.seats, mult: mult }
+	});
 })
+
+// Update line weights when zoom changes
+map.on('zoomend', updateLineWeights);
 
 map.attributionControl.addAttribution(' | 2019 air travel data from <a href="https://www.transtats.bts.gov/">Bureau of Transportation Statistics</a>')
 
