@@ -96,12 +96,77 @@ latlngs.reverse().map(function(l) {
 	// Store polyline and its data for later updates
 	polylines.push({
 		polyline: polyline,
-		data: { seats: l.seats, mult: mult }
+		data: {
+			seats: l.seats,
+			mult: mult,
+			coords: l.coords,
+			color: theColor
+		}
 	});
 })
 
 // Update line weights when zoom changes
 map.on('zoomend', updateLineWeights);
+
+// Track highlighted routes
+var highlightedRoutes = [];
+
+// Helper function to check if two coordinates are the same
+function coordsEqual(coord1, coord2) {
+	return Math.abs(coord1[0] - coord2[0]) < 0.0001 && Math.abs(coord1[1] - coord2[1]) < 0.0001;
+}
+
+// Function to reset all highlights
+function resetHighlights() {
+	highlightedRoutes.forEach(function(item) {
+		item.polyline.setStyle({
+			opacity: 0.5,
+			color: item.data.color
+		});
+	});
+	highlightedRoutes = [];
+}
+
+// Function to highlight connected routes
+function highlightConnectedRoutes(clickedItem) {
+	// Reset any existing highlights
+	resetHighlights();
+
+	var endpoints = clickedItem.data.coords;
+	var endpoint1 = endpoints[0];
+	var endpoint2 = endpoints[1];
+
+	// Find all connected routes
+	polylines.forEach(function(item) {
+		var itemEndpoints = item.data.coords;
+		var itemEnd1 = itemEndpoints[0];
+		var itemEnd2 = itemEndpoints[1];
+
+		// Check if this route shares an endpoint with the clicked route
+		if (coordsEqual(endpoint1, itemEnd1) || coordsEqual(endpoint1, itemEnd2) ||
+		    coordsEqual(endpoint2, itemEnd1) || coordsEqual(endpoint2, itemEnd2)) {
+			// Highlight this route
+			item.polyline.setStyle({
+				opacity: 0.9,
+				color: '#00ff00'  // Bright green for highlighted routes
+			});
+			highlightedRoutes.push(item);
+		}
+	});
+}
+
+// Add click handlers to all polylines
+polylines.forEach(function(item) {
+	item.polyline.on('click', function(e) {
+		highlightConnectedRoutes(item);
+		L.DomEvent.stopPropagation(e);
+	});
+});
+
+// Click on map to clear highlights
+map.on('click', function() {
+	resetHighlights();
+});
 
 map.attributionControl.addAttribution(' | 2019 air travel data from <a href="https://www.transtats.bts.gov/">Bureau of Transportation Statistics</a>')
 
