@@ -8,6 +8,11 @@
 	height: 100%;
 	width: 100%;
 	}
+
+  /* Desaturate map tiles by 50% */
+  .leaflet-tile {
+	filter: saturate(0.1);
+	}
   .header {
       font-size : 1.8em;
       font-family : arial,helvetica;
